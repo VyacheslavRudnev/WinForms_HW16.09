@@ -7,14 +7,28 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
-        private void button2_MouseMove(object sender, MouseEventArgs e)
+
+        private void WindowLoad(object sender, EventArgs e)
         {
-            button2.Top += e.Y;
-            button2.Left -= e.X;
-            if (button2.Top < -10 || button2.Top > 100)
-                button2.Top = 60;
-            if (button2.Left < -80 || button2.Left > 250)
-                button2.Left = 120;
+            
+            string title = "Стисло про себе";
+            string messageStart = "Мене зовуть Вячеслав, мені 47 років, я навчаюсь в КА ШАГ";
+            MessageBox.Show(messageStart, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string messageMiddle = "Я вже вивчив такі мови програмування як: C++, C#";
+            MessageBox.Show(messageMiddle, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string messageEnd = "Наразі працюю над WindowsForm";
+            MessageBox.Show(messageEnd, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            int countBoxes = messageStart.Length + messageMiddle.Length + messageEnd.Length;
+            int countSymbols = countBoxes / 3;
+            string message = $"Середня кількість символів на сторінці: {countSymbols}";
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WindowLoad(sender, e);
         }
     }
 }

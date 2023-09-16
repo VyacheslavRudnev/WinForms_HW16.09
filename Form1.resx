@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Вывести на экран свое (краткое!!!) резюме с помощью последова-
+тельности MessageBox’ов (числом не менее трех). Причем на заголовке
+последнего должно отобразиться среднее число символов на странице
+(общее количество символов в резюме / количество MessageBox’ов).</value>
+  </data>
 </root>
