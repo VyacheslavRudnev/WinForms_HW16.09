@@ -7,10 +7,8 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
-
-        private void WindowLoad(object sender, EventArgs e)
-        {
-            
+        private void button1_Click(object sender, EventArgs e)
+                {
             string title = "Стисло про себе";
             string messageStart = "Мене зовуть Вячеслав, мені 47 років, я навчаюсь в КА ШАГ";
             MessageBox.Show(messageStart, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -22,13 +20,9 @@ namespace WinFormsApp1
             int countSymbols = countBoxes / 3;
             string message = $"Середня кількість символів на сторінці: {countSymbols}";
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
         }
+        
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            WindowLoad(sender, e);
-        }
+        
     }
 }
