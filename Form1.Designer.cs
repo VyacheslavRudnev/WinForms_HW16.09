@@ -58,6 +58,9 @@
             button1.AutoSize = true;
             button1.BackColor = Color.LightSkyBlue;
             button1.CausesValidation = false;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 192);
+            button1.FlatAppearance.MouseOverBackColor = Color.DodgerBlue;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Calibri", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
             button1.ForeColor = Color.Navy;

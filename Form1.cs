@@ -11,11 +11,12 @@ namespace WinFormsApp1
         {
             string message1 = "Загадай число від 1 до 2000";
             string title = "Вгадай число";
-            MessageBox.Show(message1, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            MessageBox.Show(message1, title, MessageBoxButtons.OK, MessageBoxIcon.Question);
             int min = 1;
             int max = 2000;
             int number = 0;
             int count = 0;
+            
             while (true)
             {
                 count++;
