@@ -78,7 +78,7 @@
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Коротке резюме";
-            Load += WindowLoad;
+            
             ResumeLayout(false);
             PerformLayout();
         }
