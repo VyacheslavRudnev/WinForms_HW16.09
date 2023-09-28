@@ -27,6 +27,7 @@ namespace WinFormsApp1
         //вым номером.
         int X { get; set; }
         int Y { get; set; }
+
         int numStatic = 1;
 
         public Form1()
@@ -43,74 +44,85 @@ namespace WinFormsApp1
                 X = e.X;
                 Y = e.Y;
             }
-        }
+        }        
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                Label label = new Label();
-                label.BorderStyle = BorderStyle.Fixed3D;
-                
-                if (e.X > X && e.Y > Y)
-                {
-                    label.Location = new Point(X, Y);
-                }
-                else if (e.X > X && e.Y < Y)
-                {
-                    label.Location = new Point(X, e.Y);
-                }
-                else if (e.X < X && e.Y > Y)
-                {
-                    label.Location = new Point(e.X, Y);
-                }
-                else
-                {
-                    label.Location = new Point(e.X, e.Y);
-                }
-
-                if (Math.Abs(e.X - X) <= 10 || Math.Abs(e.Y - Y) <= 10)
-                {
-                    MessageBox.Show("Розмір «статіку» повинен бути більше ніж 10х10", "Помилка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    label.Size = new Size(Math.Abs(e.X - X), Math.Abs(e.Y - Y));
-                    label.Text = numStatic.ToString();
-                    label.TextAlign = ContentAlignment.MiddleCenter;
-                    label.ForeColor = Color.White;
-                    label.BackColor = Color.Blue;
-                    Controls.Add(label);
-        
-                    Text = $"«Cтатік» №{numStatic} створено";
-                    label.BringToFront();
-                   
-                    label.MouseClick += Label_MouseClick;
-                    label.DoubleClick += Label_MouseDoubleClick;
-                    numStatic++;
-                }
+                CreateStaticLabel(X, Y, e.X, e.Y);
             }
             else
             {
                 MessageBox.Show("Для створення «статіка» натискайте ліву кнопку миші.", "Помилка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void CreateStaticLabel(int startX, int startY, int endX, int endY)
+        {
+            if (Math.Abs(endX - startX) <= 10 || Math.Abs(endY - startY) <= 10)
+            {
+                MessageBox.Show("Розмір «статіку» повинен бути більше ніж 10х10", "Помилка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            Label label = new Label
+            {
+                BorderStyle = BorderStyle.Fixed3D,
+                Location = new Point(Math.Min(startX, endX), Math.Min(startY, endY)),
+                Size = new Size(Math.Abs(endX - startX), Math.Abs(endY - startY)),
+                Text = numStatic.ToString(),
+                TextAlign = ContentAlignment.MiddleCenter,
+                ForeColor = Color.White,
+                BackColor = Color.Blue,
+            };
 
+            Controls.Add(label);
 
+            Text = $"«Cтатік» №{numStatic} створено";
+            label.BringToFront();
+
+            label.MouseClick += Label_MouseClick;
+            label.DoubleClick += Label_MouseDoubleClick;
+            numStatic++;
+        }
         private void Label_MouseDoubleClick(object sender, EventArgs e)
         {
             if (e is MouseEventArgs)
             {
-                int numLabel = numStatic;
+                int smallestStaticNumber = numStatic;
                 MouseEventArgs mouseEventArgs = e as MouseEventArgs;
                 if (mouseEventArgs.Button == MouseButtons.Left)
                 {
-                    Label label = sender as Label;
-                    Text = $"«Cтатік» №{label.Text} видалено";
-                    Controls.Remove(label);
-                    label.MouseClick -= Label_MouseClick;
-                    label.DoubleClick -= Label_MouseDoubleClick;
+                    var staticLabels = Controls.OfType<Label>();
 
+                    foreach (Label label in staticLabels)
+                    {
+                        Point location = label.PointToScreen(Point.Empty);
+                        if (MousePosition.X > location.X && MousePosition.X < location.X + label.Width &&
+                            MousePosition.Y > location.Y && MousePosition.Y < location.Y + label.Height)
+                        {
+                            if (int.TryParse(label.Text, out int labelNumber))
+                            {
+                                if (smallestStaticNumber > labelNumber)
+                                {
+                                    smallestStaticNumber = labelNumber;
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (Label label in staticLabels)
+                    {
+                        if (int.TryParse(label.Text, out int labelNumber))
+                        {
+                            if (smallestStaticNumber == labelNumber)
+                            {
+                                Text = $"«Cтатік» №{labelNumber} видалено";
+                                Controls.Remove(label);
+                                label.MouseClick -= Label_MouseClick;
+                                label.DoubleClick -= Label_MouseDoubleClick;
+                            }
+                        }
+                    }
                 }
             }
         }
