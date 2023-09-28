@@ -82,8 +82,8 @@ namespace WinFormsApp1
                     Controls.Add(label);
         
                     Text = $"«Cтатік» №{numStatic} створено";
+                    label.BringToFront();
                    
-                    //Controls.Add(label);
                     label.MouseClick += Label_MouseClick;
                     label.DoubleClick += Label_MouseDoubleClick;
                     numStatic++;
@@ -118,6 +118,7 @@ namespace WinFormsApp1
         {
             if (e.Button == MouseButtons.Right)
             {
+                
                 Label label = sender as Label;
                 Text = $"Площа «статіка» №{label.Text}: {label.Width * label.Height} Координати: {label.Location.X}, {label.Location.Y}";
             }
